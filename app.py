@@ -1,8 +1,15 @@
+"""
+Main entry point for the Smart Band Edge Service Flask application.
+
+This module initializes the Flask app, sets up the database, creates a test device if needed,
+and registers the IAM and Health API blueprints.
+"""
 from flask import Flask
-from iam.application.routes import iam_api
+
 from health.application.routes import health_api
+from iam.application.routes import iam_api
+from iam.infrastructure.repositories import get_or_create_test_device
 from shared.infrastructure.database import init_db
-from iam.infrastructure.repositories import DeviceRepository
 
 app = Flask(__name__)
 
@@ -10,11 +17,12 @@ app = Flask(__name__)
 init_db()
 
 # Initialize test device
-DeviceRepository().get_or_create_test_device()
+get_or_create_test_device()
 
 # Register blueprints
 app.register_blueprint(iam_api)
 app.register_blueprint(health_api)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    # Run the Flask application
+    app.run(host="localhost", port=5000, debug=True)

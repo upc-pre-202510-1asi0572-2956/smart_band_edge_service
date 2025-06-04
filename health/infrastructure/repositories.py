@@ -1,17 +1,32 @@
-from .models import HealthRecord as HealthRecordModel
-from ..domain.entities import HealthRecord
+"""
+Repository for health record persistence.
 
+Handles saving health records to the database using Peewee ORM models.
+"""
+from health.infrastructure.models import HealthRecord as HealthRecordModel
+from health.domain.entities import HealthRecord
 
 class HealthRecordRepository:
+    """
+    Repository for managing HealthRecord persistence.
+    """
     def save(self, health_record):
+        """
+        Save a HealthRecord entity to the database.
+        Args:
+            health_record (HealthRecord): The health record to save.
+        Returns:
+            HealthRecord: The saved health record with assigned ID.
+        """
         record = HealthRecordModel.create(
             device_id=health_record.device_id,
             bpm=health_record.bpm,
-            timestamp=health_record.timestamp
+            created_at=health_record.created_at
         )
         return HealthRecord(
             health_record.device_id,
             health_record.bpm,
-            health_record.timestamp,
+            health_record.created_at,
             record.id
         )
+

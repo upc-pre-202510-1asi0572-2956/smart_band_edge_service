@@ -1,1 +1,0 @@
-# Empty file to make smart-band-edge-service a Python package
