@@ -22,6 +22,7 @@ Smart Band Edge Service is a Python-based application for processing and analyzi
 - python-dateutil (date and time handling)
 
 ## Domain-Driven Design (DDD) Structure
+
 The project follows a Domain-Driven Design (DDD) approach, distributing the features in two main bounded contexts:
 - **Health Monitoring**: Manages health-related data from smart bands, including heart rate, steps, and sleep patterns.
 - **Identity and Access Management**: Handles device authentication.
@@ -31,6 +32,12 @@ Inside each bounded context, code is organized into distinct layers:
 - **Application**: Contains application services and use cases.
 - **Infrastructure**: Contains data access, external service integrations, and configurations.
 - **Interfaces**: Contains API controllers and user interfaces.
+
+## Documentation
+
+For detailed documentation, refer to the [docs](docs) directory. It includes:
+- **Class Diagrams**: The file [docs/class-diagram.puml](docs/class-diagram.puml) contains the visual representation of the domain-driven packages, classes, and their relationships in PlantUML DSL.
+
 ## Usage
 
 ### Start the Service
@@ -43,11 +50,11 @@ The service will initialize the database and create a test device on the first r
 
 ### API Endpoints
 
-- `GET /status` — Service health check
+- `GET /status` — Service health check (_to be implemented_)
 - `POST /api/v1/health-monitoring/health-records` — Ingest smart band data
 
 
-Refer to the API documentation for full details.
+Refer to the code-level documentation for full details.
 
 ## License
 
