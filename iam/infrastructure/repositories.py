@@ -1,5 +1,8 @@
 """Repositories for the IAM bounded context."""
 from typing import Optional
+
+import peewee
+
 from iam.domain.entities import Device
 from iam.infrastructure.models import Device as DeviceModel
 
@@ -21,10 +24,10 @@ class DeviceRepository:
                 (DeviceModel.device_id == device_id) & (DeviceModel.api_key == api_key)
             )
             return Device(device.device_id, device.api_key, device.created_at)
-        except DeviceModel.DoesNotExist:
+        except peewee.DoesNotExist:
             return None
 
-    def get_or_create_test_device(self):
+    def get_or_create_test_device(self) -> Device:
         """Get or create a test device for development.
 
         Returns:

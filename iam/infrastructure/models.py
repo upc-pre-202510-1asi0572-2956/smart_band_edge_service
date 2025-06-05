@@ -11,11 +11,11 @@ class Device(Model):
         api_key (CharField): API key for authentication.
         created_at (DateTimeField): Creation timestamp.
     """
-    device_id = CharField(primary_key=True)
-    api_key = CharField()
-    created_at = DateTimeField()
+    device_id   = CharField(primary_key=True)
+    api_key     = CharField()
+    created_at  = DateTimeField()
 
     class Meta:
         """Metadata for the Device model."""
-        database = db
-        table_name = 'devices'
+        database    = db
+        table_name  = 'devices'
