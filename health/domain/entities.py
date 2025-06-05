@@ -1,4 +1,4 @@
-"""Domain entities for the Health bounded context."""
+"""Domain entities for the Health-bounded context."""
 
 class HealthRecord:
     """Represents a health record entity in the Health context.
