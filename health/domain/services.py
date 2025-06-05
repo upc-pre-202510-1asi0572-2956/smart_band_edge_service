@@ -1,7 +1,10 @@
-"""Domain services for the Health bounded context."""
-from health.domain.entities import HealthRecord
+"""Domain services for the Health-bounded context."""
 from datetime import datetime, timezone
+
 from dateutil.parser import parse
+
+from health.domain.entities import HealthRecord
+
 
 class HealthRecordService:
     """Service for managing health records."""
@@ -10,20 +13,22 @@ class HealthRecordService:
         """Initialize the HealthRecordService.
         """
 
-    def create_record(self, device_id, bpm, created_at) -> HealthRecord:
+    @staticmethod
+    def create_record(device_id: str, bpm: float, created_at: str | None) -> HealthRecord:
+
         """Create a new health record.
 
-        Args:
-            device_id (str): Device identifier.
-            bpm (float): Heart rate in beats per minute.
-            created_at (str): ISO 8601 timestamp (e.g., '2025-06-04T18:23:00-05:00').
+                    Args:
+                        device_id (str): Device identifier.
+                        bpm (float): Heart rate in beats per minute.
+                        created_at (str): ISO 8601 timestamp (e.g., '2025-06-04T18:23:00-05:00').
 
-        Returns:
-            HealthRecord: The created health record entity.
+                    Returns:
+                        HealthRecord: The created health record entity.
 
-        Raises:
-            ValueError: If BPM is invalid (not 0–200) or created_at is malformed.
-        """
+                    Raises:
+                        ValueError: If BPM is invalid (not 0–200) or created_at is malformed.
+                    """
         try:
             bpm = float(bpm)
             if not (0 <= bpm <= 200):

@@ -1,5 +1,4 @@
-"""Application services for the Health bounded context."""
-from typing import Optional
+"""Application services for the Health-bounded context."""
 
 from health.domain.entities import HealthRecord
 from health.domain.services import HealthRecordService

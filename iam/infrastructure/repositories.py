@@ -9,7 +9,8 @@ from iam.infrastructure.models import Device as DeviceModel
 class DeviceRepository:
     """Repository for managing Device entities."""
 
-    def find_by_id_and_api_key(self, device_id: str, api_key: str) -> Optional[Device]:
+    @staticmethod
+    def find_by_id_and_api_key(device_id: str, api_key: str) -> Optional[Device]:
         """Find a device by its ID and API key.
 
         Args:
@@ -27,7 +28,8 @@ class DeviceRepository:
         except peewee.DoesNotExist:
             return None
 
-    def get_or_create_test_device(self) -> Device:
+    @staticmethod
+    def get_or_create_test_device() -> Device:
         """Get or create a test device for development.
 
         Returns:

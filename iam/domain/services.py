@@ -9,7 +9,8 @@ class AuthService:
         """Initialize the AuthService.
         """
 
-    def authenticate(self, device: Optional[Device]) -> bool:
+    @staticmethod
+    def authenticate(device: Optional[Device]) -> bool:
         """Authenticate a device using its ID and API key.
 
         Args:

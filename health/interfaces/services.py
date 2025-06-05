@@ -1,5 +1,6 @@
-"""Interface services for the Health bounded context."""
+"""Interface services for the Health-bounded context."""
 from flask import Blueprint, request, jsonify
+
 from health.application.services import HealthRecordApplicationService
 from iam.interfaces.services import authenticate_request
 

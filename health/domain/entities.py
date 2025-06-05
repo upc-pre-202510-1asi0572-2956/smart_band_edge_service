@@ -1,4 +1,6 @@
 """Domain entities for the Health-bounded context."""
+from datetime import datetime
+
 
 class HealthRecord:
     """Represents a health record entity in the Health context.
@@ -10,7 +12,7 @@ class HealthRecord:
         created_at (datetime): Timestamp when the record was created.
     """
 
-    def __init__(self, device_id: str, bpm: float, created_at, id: int = None):
+    def __init__(self, device_id: str, bpm: float, created_at: datetime, id: int = None):
         """Initialize a HealthRecord instance.
 
         Args:

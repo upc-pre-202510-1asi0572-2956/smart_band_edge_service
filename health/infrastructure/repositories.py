@@ -3,14 +3,16 @@ Repository for health record persistence.
 
 Handles saving health records to the database using Peewee ORM models.
 """
-from health.infrastructure.models import HealthRecord as HealthRecordModel
 from health.domain.entities import HealthRecord
+from health.infrastructure.models import HealthRecord as HealthRecordModel
+
 
 class HealthRecordRepository:
     """
     Repository for managing HealthRecord persistence.
     """
-    def save(self, health_record) -> HealthRecord:
+    @staticmethod
+    def save(health_record) -> HealthRecord:
         """
         Save a HealthRecord entity to the database.
         Args:
