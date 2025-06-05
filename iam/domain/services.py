@@ -1,31 +1,22 @@
-"""
-Authentication service for device IAM.
-
-Provides business logic for authenticating devices using device_id and API key.
-"""
-from ..infrastructure.repositories import DeviceRepository
+"""Domain services for the IAM bounded context."""
+from typing import Optional
+from iam.domain.entities import Device
 
 class AuthService:
-    """
-    Service for authenticating devices.
-    """
-    def __init__(self, device_repository: DeviceRepository):
-        """
-        Initialize the AuthService with a device repository.
-        """
-        self.device_repository = device_repository
+    """Service for authenticating devices in the IAM context."""
 
-    def authenticate(self, device_id: str, api_key: str) -> bool:
+    def __init__(self):
+        """Initialize the AuthService.
         """
-        Authenticate a device by its ID and API key.
+
+    def authenticate(self, device: Optional[Device]) -> bool:
+        """Authenticate a device using its ID and API key.
+
         Args:
-            device_id (str): The device identifier.
-            Api_key (str): The API key for the device.
-        Returns:
-            bool: True if authentication is successful, False otherwise.
-            :param device_id:
-            :param api_key:
-        """
-        device = self.device_repository.find_by_id_and_api_key(device_id, api_key)
-        return device is not None
+            device (Optional[Device]): The device to authenticate.
 
+        Returns:
+            bool: True if authentication succeeds, False otherwise.
+
+        """
+        return device is not None

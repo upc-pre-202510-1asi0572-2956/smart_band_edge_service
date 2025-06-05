@@ -3,7 +3,7 @@ Peewee ORM model for health records.
 
 Defines the HealthRecord database table structure for storing health monitoring data.
 """
-from peewee import Model, AutoField, FloatField, CharField
+from peewee import Model, AutoField, FloatField, CharField, DateTimeField
 
 from shared.infrastructure.database import db
 
@@ -16,7 +16,7 @@ class HealthRecord(Model):
     id = AutoField()
     device_id = CharField()
     bpm = FloatField()
-    created_at = CharField()
+    created_at = DateTimeField()
 
     class Meta:
         database = db

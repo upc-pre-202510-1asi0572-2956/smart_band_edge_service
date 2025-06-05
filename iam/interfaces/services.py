@@ -1,22 +1,19 @@
-"""
-Flask routes for device authentication and IAM endpoints.
-
-This module defines the API endpoints for device authentication and related IAM operations.
-"""
+"""Interface services for the IAM bounded context."""
 from flask import Blueprint, request, jsonify
-
-from iam.domain.services import AuthService
-from iam.infrastructure.repositories import DeviceRepository
+from iam.application.services import AuthApplicationService
 
 iam_api = Blueprint("iam_api", __name__)
 
 # Initialize dependencies
-auth_service = AuthService(DeviceRepository())
+auth_service = AuthApplicationService()
 
 def authenticate_request():
-    """
-    Authenticate a request using device_id and X-API-Key from headers.
-    Returns a Flask response with error if authentication fails, otherwise None.
+    """Authenticate an incoming HTTP request.
+
+    Checks for device_id in the JSON body and X-API-Key in headers.
+
+    Returns:
+        tuple: (JSON response, status code) if authentication fails, None if successful.
     """
     device_id = request.json.get("device_id") if request.json else None
     api_key = request.headers.get("X-API-Key")
@@ -25,4 +22,3 @@ def authenticate_request():
     if not auth_service.authenticate(device_id, api_key):
         return jsonify({"error": "Invalid device_id or API key"}), 401
     return None
-

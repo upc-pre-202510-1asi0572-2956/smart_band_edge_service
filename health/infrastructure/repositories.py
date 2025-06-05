@@ -10,7 +10,7 @@ class HealthRecordRepository:
     """
     Repository for managing HealthRecord persistence.
     """
-    def save(self, health_record):
+    def save(self, health_record) -> HealthRecord:
         """
         Save a HealthRecord entity to the database.
         Args:
@@ -19,9 +19,9 @@ class HealthRecordRepository:
             HealthRecord: The saved health record with assigned ID.
         """
         record = HealthRecordModel.create(
-            device_id=health_record.device_id,
-            bpm=health_record.bpm,
-            created_at=health_record.created_at
+            device_id   =   health_record.device_id,
+            bpm         =   health_record.bpm,
+            created_at  =   health_record.created_at
         )
         return HealthRecord(
             health_record.device_id,

@@ -1,48 +1,38 @@
-"""
-Domain service for health record operations.
-
-Provides business logic for creating and validating health records.
-"""
-from datetime import datetime
-
+"""Domain services for the Health bounded context."""
+from health.domain.entities import HealthRecord
+from datetime import datetime, timezone
 from dateutil.parser import parse
 
-from health.domain.entities import HealthRecord
-
 class HealthRecordService:
-    """
-    Service for managing health records.
-    """
-    def __init__(self, health_record_repository):
-        """
-        Initialize the service with a health record repository.
-        """
-        self.health_record_repository = health_record_repository
+    """Service for managing health records."""
 
-    def create_record(self, device_id, bpm, created_at):
+    def __init__(self):
+        """Initialize the HealthRecordService.
         """
-        Create and validate a health record, then save it.
+
+    def create_record(self, device_id, bpm, created_at) -> HealthRecord:
+        """Create a new health record.
+
         Args:
-            device_id (str): The device identifier.
-            bpm (float): Beats per minute.
-            created_at (str): ISO8601 timestamp or 'unknown'.
+            device_id (str): Device identifier.
+            bpm (float): Heart rate in beats per minute.
+            created_at (str): ISO 8601 timestamp (e.g., '2025-06-04T18:23:00-05:00').
+
         Returns:
             HealthRecord: The created health record entity.
+
         Raises:
-            ValueError: If data is invalid.
+            ValueError: If BPM is invalid (not 0–200) or created_at is malformed.
         """
-        print(f"Creating health record for device {device_id} with BPM {bpm} at {created_at}")
         try:
             bpm = float(bpm)
             if not (0 <= bpm <= 200):
                 raise ValueError("Invalid BPM value")
-            parsed_created_at = parse(created_at) if created_at != "unknown" else datetime.today()
-            print(f"Creating health record for device {device_id} with BPM {bpm} at {created_at}")
-            created_at_str = parsed_created_at.isoformat()
-            print(f"Parsed created_at: {created_at_str}")
+            if created_at:
+                parsed_created_at = parse(created_at).astimezone(timezone.utc)
+            else:
+                parsed_created_at = datetime.now(timezone.utc)
         except (ValueError, TypeError):
             raise ValueError("Invalid data format")
 
-        record = HealthRecord(device_id, bpm, created_at_str)
-        return self.health_record_repository.save(record)
-
+        return HealthRecord(device_id, bpm, parsed_created_at)
