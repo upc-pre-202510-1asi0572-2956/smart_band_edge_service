@@ -33,3 +33,17 @@ class AuthApplicationService:
             Device: The test device entity.
         """
         return self.device_repository.get_or_create_test_device()
+
+    def get_device_by_id_and_api_key(self, device_id: str, api_key: str) -> Optional[Device]:
+        """Get a device by its ID and API key.
+
+        Args:
+            device_id (str): Unique identifier of the device.
+            api_key (str): API key for authentication.
+
+        Returns:
+            Optional[Device]: Device entity if found, None otherwise.
+        """
+        return self.device_repository.find_by_id_and_api_key(device_id, api_key)
+
+
